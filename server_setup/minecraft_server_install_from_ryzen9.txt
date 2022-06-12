@@ -1,0 +1,21 @@
+apt-get update -y
+apt-get upgrade -y
+apt-get install nginx php7.4 php7.4-fpm php7.4-cli php7.4-mysql php7.4-curl php7.4-json -y
+
+systemctl start nginx
+systemctl enable nginx
+systemctl start php7.4-fpm
+systemctl enable php7.4-fpm
+
+nginx -v
+php --version
+
+systemctl restart nginx
+systemctl status nginx
+
+# Проверить что синтаксис сайтов корректен:
+nginx -t
+
+
+
+http://194.61.1.164:8100
