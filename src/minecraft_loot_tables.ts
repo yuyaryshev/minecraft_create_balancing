@@ -406,11 +406,23 @@ export function loadLootTables() {
 
     // Show all problem files and replace all recipes
 
+    readDirRecursive(allJsonPaths, (path: string, dirent: Dirent) => {
+        const fullPath = joinPath(path, dirent.name);
+        if (!dirent.isDirectory() && fullPath.endsWith('.json')) {
+            if (fullPath.includes("dungeoncrawl") && fullPath.includes("treasure")) {
+                problemFiles.add(fullPath);
+            }
+        }
+    });
+
     for (const problemFile of problemFiles) {
         const oldContent = readFileSync(problemFile, "utf-8");
         const targetFile = `G:\\G\\Minecraft\\kubejs\\data\\` + problemFile.split(`\\data\\`)[1];
         const newContent = replaceAll(oldContent);
         outputFileSync(targetFile, newContent, "utf-8");
+        if(!targetFile || targetFile.includes('undefined')) {
+            console.log(targetFile);
+        }
         console.log(targetFile);
     }
 }
