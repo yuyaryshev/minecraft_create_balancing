@@ -1,4 +1,4 @@
-import { allJsonPaths } from "./minecraft_paths.js";
+import { iterateSourceJsonPaths} from "./minecraft_paths.js";
 import { join as joinPath } from "path";
 import { readFile, readFileSync, outputFileSync } from "fs-extra";
 import { readDirRecursive } from "ystd_server";
@@ -304,8 +304,7 @@ export function loadLootTables() {
     const allLootTableTypes: Set<string> = new Set();
     const problemFiles: Set<string> = new Set();
 
-    readDirRecursive(allJsonPaths, (path: string, dirent: Dirent) => {
-        const fullPath = joinPath(path, dirent.name);
+    iterateSourceJsonPaths(({fullPath, dirent}) => {
         if (fullPath.includes("\\loot_tables\\") && !dirent.isDirectory() && fullPath.endsWith(".json")) {
             const contentStr = readFileSync(fullPath, "utf-8");
             const parsed: LootTableFile = JSON.parse(contentStr);
@@ -399,15 +398,14 @@ export function loadLootTables() {
     function replaceAll(s: string) {
         for (const k in replacementMappings) {
             const v = replacementMappings[k];
-            s = s.split(k).join(v);
+            s = s.split(JSON.stringify(k)).join(JSON.stringify(v));
         }
         return s;
     }
 
     // Show all problem files and replace all recipes
 
-    readDirRecursive(allJsonPaths, (path: string, dirent: Dirent) => {
-        const fullPath = joinPath(path, dirent.name);
+    iterateSourceJsonPaths(({fullPath, dirent}) => {
         if (!dirent.isDirectory() && fullPath.endsWith('.json')) {
             if (fullPath.includes("dungeoncrawl") && fullPath.includes("treasure")) {
                 problemFiles.add(fullPath);
