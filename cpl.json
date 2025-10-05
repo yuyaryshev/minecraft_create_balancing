@@ -1,0 +1,287 @@
+[
+ {
+  "cpl": 27,
+  "filePath": "src\\check_minecraft_json.ts",
+  "pos": 364
+ },
+ {
+  "cpl": 28,
+  "filePath": "src\\check_minecraft_json.ts",
+  "pos": 520
+ },
+ {
+  "cpl": 30,
+  "filePath": "src\\check_minecraft_json.ts",
+  "pos": 663
+ },
+ {
+  "cpl": 31,
+  "filePath": "src\\check_minecraft_json.ts",
+  "pos": 819
+ },
+ {
+  "cpl": 1,
+  "filePath": "src\\check_minecraft_json.ts",
+  "pos": 1034
+ },
+ {
+  "cpl": 2,
+  "filePath": "src\\check_minecraft_json.ts",
+  "pos": 1194
+ },
+ {
+  "cpl": 3,
+  "filePath": "src\\check_minecraft_json.ts",
+  "pos": 1408
+ },
+ {
+  "cpl": 4,
+  "filePath": "src\\check_minecraft_json.ts",
+  "pos": 1572
+ },
+ {
+  "cpl": 5,
+  "filePath": "src\\check_minecraft_json.ts",
+  "pos": 1867
+ },
+ {
+  "cpl": 6,
+  "filePath": "src\\check_minecraft_json.ts",
+  "pos": 2008
+ },
+ {
+  "cpl": 7,
+  "filePath": "src\\check_minecraft_json.ts",
+  "pos": 2577
+ },
+ {
+  "cpl": 8,
+  "filePath": "src\\json_utils.ts",
+  "pos": 908
+ },
+ {
+  "cpl": 9,
+  "filePath": "src\\minecraft_recipe_utils.ts",
+  "pos": 3326
+ },
+ {
+  "cpl": 10,
+  "filePath": "src\\minecraft_recipe_utils.ts",
+  "pos": 4944
+ },
+ {
+  "cpl": 55,
+  "filePath": "src\\validate_kubejs_scripts.ts",
+  "pos": 3725
+ },
+ {
+  "cpl": 56,
+  "filePath": "src\\validate_kubejs_scripts.ts",
+  "pos": 3924
+ },
+ {
+  "cpl": 57,
+  "filePath": "src\\validate_kubejs_scripts.ts",
+  "pos": 4143
+ },
+ {
+  "cpl": 58,
+  "filePath": "src\\validate_kubejs_scripts.ts",
+  "pos": 6482
+ },
+ {
+  "cpl": 59,
+  "filePath": "src\\validate_kubejs_scripts.ts",
+  "pos": 6620
+ },
+ {
+  "cpl": 29,
+  "filePath": "lib\\ts\\check_minecraft_json.js",
+  "pos": 635
+ },
+ {
+  "cpl": 25,
+  "filePath": "lib\\ts\\check_minecraft_json.js",
+  "pos": 812
+ },
+ {
+  "cpl": 26,
+  "filePath": "lib\\ts\\check_minecraft_json.js",
+  "pos": 972
+ },
+ {
+  "cpl": 13,
+  "filePath": "lib\\ts\\check_minecraft_json.js",
+  "pos": 1145
+ },
+ {
+  "cpl": 14,
+  "filePath": "lib\\ts\\check_minecraft_json.js",
+  "pos": 1352
+ },
+ {
+  "cpl": 15,
+  "filePath": "lib\\ts\\check_minecraft_json.js",
+  "pos": 1533
+ },
+ {
+  "cpl": 16,
+  "filePath": "lib\\ts\\check_minecraft_json.js",
+  "pos": 1739
+ },
+ {
+  "cpl": 17,
+  "filePath": "lib\\ts\\check_minecraft_json.js",
+  "pos": 1922
+ },
+ {
+  "cpl": 18,
+  "filePath": "lib\\ts\\check_minecraft_json.js",
+  "pos": 2240
+ },
+ {
+  "cpl": 19,
+  "filePath": "lib\\ts\\check_minecraft_json.js",
+  "pos": 2398
+ },
+ {
+  "cpl": 20,
+  "filePath": "lib\\ts\\check_minecraft_json.js",
+  "pos": 3062
+ },
+ {
+  "cpl": 21,
+  "filePath": "lib\\ts\\minecraft_recipe_utils.js",
+  "pos": 2895
+ },
+ {
+  "cpl": 22,
+  "filePath": "lib\\ts\\minecraft_recipe_utils.js",
+  "pos": 4535
+ },
+ {
+  "cpl": 23,
+  "filePath": "lib\\ts\\validate_kubejs_scripts.js",
+  "pos": 4045
+ },
+ {
+  "cpl": 32,
+  "filePath": "lib\\ts\\validate_kubejs_scripts.js",
+  "pos": 4243
+ },
+ {
+  "cpl": 33,
+  "filePath": "lib\\ts\\validate_kubejs_scripts.js",
+  "pos": 4461
+ },
+ {
+  "cpl": 34,
+  "filePath": "lib\\ts\\validate_kubejs_scripts.js",
+  "pos": 6835
+ },
+ {
+  "cpl": 35,
+  "filePath": "lib\\ts\\validate_kubejs_scripts.js",
+  "pos": 7052
+ },
+ {
+  "cpl": 12,
+  "filePath": "src\\parse_probe.ts",
+  "pos": 1181
+ },
+ {
+  "cpl": 60,
+  "filePath": "lib\\cjs\\check_minecraft_json.js",
+  "pos": 715
+ },
+ {
+  "cpl": 61,
+  "filePath": "lib\\cjs\\check_minecraft_json.js",
+  "pos": 841
+ },
+ {
+  "cpl": 62,
+  "filePath": "lib\\cjs\\check_minecraft_json.js",
+  "pos": 985
+ },
+ {
+  "cpl": 63,
+  "filePath": "lib\\cjs\\check_minecraft_json.js",
+  "pos": 1111
+ },
+ {
+  "cpl": 64,
+  "filePath": "lib\\cjs\\check_minecraft_json.js",
+  "pos": 1305
+ },
+ {
+  "cpl": 65,
+  "filePath": "lib\\cjs\\check_minecraft_json.js",
+  "pos": 1435
+ },
+ {
+  "cpl": 66,
+  "filePath": "lib\\cjs\\check_minecraft_json.js",
+  "pos": 1628
+ },
+ {
+  "cpl": 67,
+  "filePath": "lib\\cjs\\check_minecraft_json.js",
+  "pos": 1762
+ },
+ {
+  "cpl": 68,
+  "filePath": "lib\\cjs\\check_minecraft_json.js",
+  "pos": 2001
+ },
+ {
+  "cpl": 69,
+  "filePath": "lib\\cjs\\check_minecraft_json.js",
+  "pos": 2143
+ },
+ {
+  "cpl": 70,
+  "filePath": "lib\\cjs\\check_minecraft_json.js",
+  "pos": 2653
+ },
+ {
+  "cpl": 71,
+  "filePath": "lib\\cjs\\json_utils.js",
+  "pos": 900
+ },
+ {
+  "cpl": 72,
+  "filePath": "lib\\cjs\\minecraft_recipe_utils.js",
+  "pos": 2608
+ },
+ {
+  "cpl": 73,
+  "filePath": "lib\\cjs\\minecraft_recipe_utils.js",
+  "pos": 4037
+ },
+ {
+  "cpl": 74,
+  "filePath": "lib\\cjs\\validate_kubejs_scripts.js",
+  "pos": 3474
+ },
+ {
+  "cpl": 75,
+  "filePath": "lib\\cjs\\validate_kubejs_scripts.js",
+  "pos": 3644
+ },
+ {
+  "cpl": 76,
+  "filePath": "lib\\cjs\\validate_kubejs_scripts.js",
+  "pos": 3824
+ },
+ {
+  "cpl": 77,
+  "filePath": "lib\\cjs\\validate_kubejs_scripts.js",
+  "pos": 5857
+ },
+ {
+  "cpl": 78,
+  "filePath": "lib\\cjs\\validate_kubejs_scripts.js",
+  "pos": 5998
+ }
+]

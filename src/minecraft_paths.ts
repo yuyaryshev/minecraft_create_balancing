@@ -4,8 +4,37 @@ import { readDirRecursive } from "ystd_server";
 import { Dirent } from "fs";
 import { parse } from "json5";
 
-const sourceJsonPaths = [`g:\\g\\minecraft\\mods_tables`];
-const allJsonPaths = [...sourceJsonPaths, "g:\\g\\minecraft\\kubejs\\data"];
+const mcPathsSetup = {
+    unpackedMods: `G:\\G\\minecraft_modding\\YYY_unpacked_mods`,
+    minecraftInstance: `G:\\G\\minecraft_prism_launcher_ely_by\\instances\\YYA\\minecraft`,
+};
+
+export const mcAllPaths = {
+    ...(() => {
+        const { unpackedMods, minecraftInstance } = mcPathsSetup;
+        const instanceLog = joinPath(minecraftInstance, "logs", "latest.log");
+        const eventGroups = joinPath(minecraftInstance, "local", "kubejs", "event_groups");
+        const probe = joinPath(minecraftInstance, "kubejs", "probe");
+        const probe_generated = joinPath(probe, "generated");
+        const probe_cache = joinPath(probe, "cache");
+        const probe_javaClasses = joinPath(probe_cache, "javaClasses.json");
+        const probe_mergedClasses = joinPath(probe_cache, "mergedClasses.json");
+
+        return {
+            ...mcPathsSetup,
+            instanceLog,
+            eventGroups,
+            probe,
+            probe_generated,
+            probe_cache,
+            probe_javaClasses,
+            probe_mergedClasses,
+        };
+    })(),
+};
+
+const sourceJsonPaths = [mcPathsSetup.unpackedMods];
+const allJsonPaths = [...sourceJsonPaths]; //, "g:\\g\\minecraft\\kubejs\\data"];
 
 export type JsonCallback = (param: JsonCallbackParam) => boolean | void | undefined;
 export type JsonCallbackWithContent = (param: JsonCallbackParamWithContent) => boolean | void | undefined;

@@ -88,7 +88,7 @@ function makeEventValidator_recipes() {
             let rowLength: number = shape[0].length;
             for (const row of shape) {
                 if (row.length !== rowLength) {
-                    console.trace(`CODE00000011 Shaped recipe ${result} has invalid shape!`);
+                    console.trace(`CODE00000055 Shaped recipe ${result} has invalid shape!`);
                 }
             }
 
@@ -101,18 +101,18 @@ function makeEventValidator_recipes() {
 
             for (let k of allKeys) {
                 if (!ingredients[k]) {
-                    console.trace(`CODE00000012 Key '${k}' is not resolved in ingredients of a shaped recipe ${result}!`);
+                    console.trace(`CODE00000056 Key '${k}' is not resolved in ingredients of a shaped recipe ${result}!`);
                 }
             }
 
             if (typeof ingredients !== "object") {
-                console.trace(`CODE00000030 Ingredients should be an object!`);
+                console.trace(`CODE00000057 Ingredients should be an object!`);
             }
 
             for (const k in ingredients) {
                 const v = ingredients[k];
                 if (!allKeys.has(k)) {
-                    console.trace(`CODE00000031 Ingredient '${k}' not present in shape of a shaped recipe ${result}!`);
+                    console.trace(`CODE00000058 Ingredient '${k}' not present in shape of a shaped recipe ${result}!`);
                 }
                 if (typeof v === "string") {
                     checkItemNameOrTag(v);
@@ -193,7 +193,7 @@ export function validateAllKubeJsScripts() {
                     (n) =>
                         `function makeEventValidator_${eventNameToFuncName(
                             n,
-                        )}() {\n\tconsole.trace(\`CODE00000002 Validator for ${n} not implemented!\`);\n\treturn {};\n};\n\n`,
+                        )}() {\n\tconsole.trace(\`CODE00000059 Validator for ${n} not implemented!\`);\n\treturn {};\n};\n\n`,
                 )
                 .join(""),
         );

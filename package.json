@@ -112,7 +112,7 @@
         "yyabuilder": "^2.3.5"
     },
     "dependencies": {
-        "@mojotech/json-type-validation": "^3.1.0",
+        "yuyaryshev-json-type-validation": "*",
         "@types/fs-extra": "^9.0.13",
         "fs-extra": "^10.1.0",
         "ystd": "*",

@@ -97,7 +97,7 @@ export function recipesStats(recipes: MinecraftRecipe[]) {
         let totalDigTime: number = 0;
         for (const k in rawCounts) {
             if (!digTime[k]) {
-                throw new Error(`CODE00000001 ${k} - no digTime for this resource!`);
+                throw new Error(`CODE00000009 ${k} - no digTime for this resource!`);
             }
             digTimes[k] = rawCounts[k] * digTime[k];
             totalDigTime += digTimes[k];
@@ -113,7 +113,7 @@ export function recipesStats(recipes: MinecraftRecipe[]) {
         if (recipeByResult[recipeName]) {
             return recipeByResult[recipeName];
         }
-        throw new Error(`CODE00000140 Recipe for '${recipeName}' - not found!`);
+        throw new Error(`CODE00000010 Recipe for '${recipeName}' - not found!`);
     }
 
     function expectRawCount(recipeName: string) {

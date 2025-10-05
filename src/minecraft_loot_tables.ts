@@ -1,13 +1,13 @@
-import { iterateSourceJsonPaths} from "./minecraft_paths.js";
+import { iterateSourceJsonPaths } from "./minecraft_paths.js";
 import { join as joinPath } from "path";
 import { readFile, readFileSync, outputFileSync, rmSync } from "fs-extra";
 import { readDirRecursive } from "ystd_server";
 import { Dirent } from "fs";
 
 const kubejsPath = `G:\\G\\Minecraft\\kubejs`;
-const kubejsDataDir = kubejsPath+`\\data`;
+const kubejsDataDir = kubejsPath + `\\data`;
 
-import { anyJson, array, constant, Decoder, number, object, oneOf, optional, string } from "@mojotech/json-type-validation";
+import { anyJson, array, constant, Decoder, number, object, oneOf, optional, string } from "yuyaryshev-json-type-validation";
 
 export type LootTableFileType =
     | "minecraft:block"
@@ -301,7 +301,7 @@ function makeReplaceWithMappings() {
     return r;
 }
 
-export function smartReplace(obj :any): boolean{
+export function smartReplace(obj: any): boolean {
     return false;
 }
 
@@ -311,7 +311,7 @@ export function loadLootTables() {
     const allLootTableTypes: Set<string> = new Set();
     const problemFiles: Set<string> = new Set();
 
-    iterateSourceJsonPaths(({fullPath, dirent}) => {
+    iterateSourceJsonPaths(({ fullPath, dirent }) => {
         if (fullPath.includes("\\loot_tables\\") && !dirent.isDirectory() && fullPath.endsWith(".json")) {
             const contentStr = readFileSync(fullPath, "utf-8");
             const parsed: LootTableFile = JSON.parse(contentStr);
@@ -412,8 +412,8 @@ export function loadLootTables() {
 
     // Show all problem files and replace all recipes
 
-    iterateSourceJsonPaths(({fullPath, dirent}) => {
-        if (!dirent.isDirectory() && fullPath.endsWith('.json')) {
+    iterateSourceJsonPaths(({ fullPath, dirent }) => {
+        if (!dirent.isDirectory() && fullPath.endsWith(".json")) {
             if (fullPath.includes("dungeoncrawl") && fullPath.includes("treasure")) {
                 problemFiles.add(fullPath);
             }
@@ -422,7 +422,7 @@ export function loadLootTables() {
 
     for (const problemFile of problemFiles) {
         const oldContent = readFileSync(problemFile, "utf-8");
-        const targetFile = kubejsDataDir+`\\` + problemFile.split(`\\data\\`)[1];
+        const targetFile = kubejsDataDir + `\\` + problemFile.split(`\\data\\`)[1];
         const obj = JSON.parse(oldContent);
 
         smartReplace(obj);
@@ -430,7 +430,7 @@ export function loadLootTables() {
         const newContent0 = JSON.stringify(obj, undefined, 4);
         const newContent = replaceAll(newContent0);
         outputFileSync(targetFile, newContent, "utf-8");
-        if(!targetFile || targetFile.includes('undefined')) {
+        if (!targetFile || targetFile.includes("undefined")) {
             console.log(targetFile);
         }
         console.log(targetFile);
@@ -444,14 +444,14 @@ export function loadLootTables() {
     readDirRecursive(additionalDataFolder, (path: string, dirent: Dirent) => {
         const fullPath = joinPath(path, dirent.name);
         if (!dirent.isDirectory() && fullPath.endsWith(".json")) {
-            const targetFile = kubejsDataDir+`\\` + fullPath.split(`\\y_data_additional\\`)[1];
-            outputFileSync(targetFile, readFileSync(fullPath,'utf-8'), 'utf-8');
+            const targetFile = kubejsDataDir + `\\` + fullPath.split(`\\y_data_additional\\`)[1];
+            outputFileSync(targetFile, readFileSync(fullPath, "utf-8"), "utf-8");
         }
     });
 
     for (const problemFile of problemFiles) {
         const oldContent = readFileSync(problemFile, "utf-8");
-        const targetFile = kubejsDataDir+`\\` + problemFile.split(`\\data\\`)[1];
+        const targetFile = kubejsDataDir + `\\` + problemFile.split(`\\data\\`)[1];
         const obj = JSON.parse(oldContent);
 
         smartReplace(obj);
@@ -459,7 +459,7 @@ export function loadLootTables() {
         const newContent0 = JSON.stringify(obj, undefined, 4);
         const newContent = replaceAll(newContent0);
         outputFileSync(targetFile, newContent, "utf-8");
-        if(!targetFile || targetFile.includes('undefined')) {
+        if (!targetFile || targetFile.includes("undefined")) {
             console.log(targetFile);
         }
         console.log(targetFile);
