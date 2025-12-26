@@ -124,9 +124,9 @@ export function parse_ct_recipes() {
 
     const filteredLines = filtered.map((r) => r.line);
     filteredLines.sort();
-    console.log(`CODE00000000 filteredLines = \n`, filteredLines.join("\n"));
-    console.log(`CODE00000000 filtered.length = \n`, filtered.length);
-    //console.log(`CODE00000000 `, recipes, filtered);
+    console.log(`CODE00000078 filteredLines = \n`, filteredLines.join("\n"));
+    console.log(`CODE00000079 filtered.length = \n`, filtered.length);
+    //console.log(`CODE00000080 `, recipes, filtered);
     return;
 }
 

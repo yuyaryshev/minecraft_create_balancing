@@ -17,7 +17,7 @@ function furnace(amount: number, material: Material): number {
         case "raw_nugget":
             return amount * 3;
     }
-    throw new Error(`CODE00000000 furnace Invalid input material = ${material}`);
+    throw new Error(`CODE00000063 furnace Invalid input material = ${material}`);
 }
 
 function blasting(amount: number, material: Material): number {
@@ -27,7 +27,7 @@ function blasting(amount: number, material: Material): number {
         case "raw_nugget":
             return amount * 5;
     }
-    throw new Error(`CODE00000000 blasting Invalid input material = ${material}`);
+    throw new Error(`CODE00000064 blasting Invalid input material = ${material}`);
 }
 
 function melting(amount: number, material: Material): number {
@@ -37,7 +37,7 @@ function melting(amount: number, material: Material): number {
         case "grain":
             return amount * 2;
     }
-    throw new Error(`CODE00000000 melting Invalid input material = ${material}`);
+    throw new Error(`CODE00000065 melting Invalid input material = ${material}`);
 }
 
 function milling(amount: number): number {

@@ -1,0 +1,54 @@
+modLoader = "javafml"
+loaderVersion = "[2,)"
+issueTrackerURL = "https://kubejs.com/support?source=kubejs&mc=2101&loader=neoforge"
+license = "GNU LGPLv3"
+
+[[mods]]
+modId = "kubejs"
+version = "${version}"
+displayName = "KubeJS"
+authors = "latvian.dev"
+description = '''
+Customize your modpack or server with JavaScript!
+'''
+logoFile = "kubejs_logo.png"
+modUrl = "https://kubejs.com"
+displayURL = "https://kubejs.com"
+
+[[dependencies.kubejs]]
+modId = "neoforge"
+type = "required"
+versionRange = "[${neoforge_version},)"
+ordering = "AFTER"
+side = "BOTH"
+
+[[dependencies.kubejs]]
+modId = "rhino"
+type = "required"
+versionRange = "[${rhino_version},)"
+ordering = "AFTER"
+side = "BOTH"
+
+[[dependencies.kubejs]]
+modId = "jei"
+type = "optional"
+versionRange = "[${jei_version},)"
+ordering = "AFTER"
+side = "CLIENT"
+
+[[dependencies.kubejs]]
+modId = "roughlyenoughitems"
+type = "optional"
+versionRange = "[${rei_version},)"
+ordering = "AFTER"
+side = "CLIENT"
+
+[[dependencies.kubejs]]
+modId = "emi"
+type = "optional"
+versionRange = "[${emi_version},)"
+ordering = "AFTER"
+side = "CLIENT"
+
+[[mixins]]
+config = "kubejs.mixins.json"

@@ -22,6 +22,6 @@ export function findPathsThatInclude(json: any, lookingfor: string): string[][] 
 
 export function printPathsThatInclude(json: any, lookingfor: string): void {
     for (let r of findPathsThatInclude(json, lookingfor)) {
-        console.log(`CODE00000008 ${r.join("/")}`);
+        console.log(`CODE00000068 ${r.join("/")}`);
     }
 }

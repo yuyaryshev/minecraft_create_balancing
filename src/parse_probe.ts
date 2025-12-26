@@ -11,7 +11,7 @@ import JSON5 from "json5";
 
 export function parse_probe() {
     const ttt = readJsonSync(`G:\\G\\minecraft_prism_launcher_ely_by\\instances\\YYA\\minecraft\\kubejs\\probe\\cache\\yy_9746part.json`);
-    console.log(`CODE00000012 `, ttt);
+    console.log(`CODE00000081 `, ttt);
     return;
     const probe_mergedClassesContentStr = readFileSync(mcAllPaths.probe_mergedClasses, "utf-8");
     const probe_mergedClassesContent = JSON5.parse(probe_mergedClassesContentStr);
