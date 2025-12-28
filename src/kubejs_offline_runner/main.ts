@@ -1,127 +1,103 @@
-import { readFile, readFileSync, outputFileSync, readdirSync } from "fs-extra";
 import { join, resolve } from "node:path";
+import { loadOrRefreshSnapshot } from "./snapshot";
+import { formatRunnerError } from "./errors";
+import { gatherKubejsFiles, runOfflineScripts } from "./runner";
 
-function readDirFilenames(dir: string): string[] {
-    let results: string[] = [];
-    const list = readdirSync(dir, { withFileTypes: true });
-    for (const entry of list) {
-        const fullPath = join(dir, entry.name);
-        if (entry.isDirectory()) {
-            results = results.concat(readDirFilenames(fullPath));
-        } else {
-            results.push(fullPath);
-        }
-    }
-    return results;
-}
-
-export interface KubeJsFiles {
-    assets: string[];
-    client_scripts: string[];
-    config: string[];
-    contentpacks: string[];
-    data: string[];
-    mixin_scripts: string[];
-    server_scripts: string[];
-    startup_scripts: string[];
-}
-
-export interface KubeJsOfflineRunnerOpts {
+export interface CliOptions {
+    instancePath: string;
     scriptsFilter?: string;
+    snapshotPath?: string;
+    logPath?: string;
+    dumpStartMarker?: string;
+    dumpEndMarker?: string;
+    dumpLineMarker?: string;
 }
 
-export function kubejs_offline_runner(pathToMinecraftInstance: string, opts: KubeJsOfflineRunnerOpts) {
-    const kubeJsFolderPath = resolve(join(pathToMinecraftInstance, "kubejs"));
-    const files: KubeJsFiles = {
-        assets: [],
-        client_scripts: [],
-        config: [],
-        contentpacks: [],
-        data: [],
-        mixin_scripts: [],
-        server_scripts: [],
-        startup_scripts: [],
-    };
+export function kubejs_offline_runner(opts: CliOptions) {
+    const instancePath = resolve(opts.instancePath);
+    const logPath = opts.logPath ?? join(instancePath, "logs", "latest.log");
+    const snapshotPath =
+        opts.snapshotPath ?? join(instancePath, "kubejs_offline_runner", "snapshot.json");
 
-    for (let subfolder in files) {
-        (files as any)[subfolder].push(...readDirFilenames(join(kubeJsFolderPath, subfolder)));
+    const snapshot = loadOrRefreshSnapshot(logPath, snapshotPath, {
+        dumpStartMarker: opts.dumpStartMarker,
+        dumpEndMarker: opts.dumpEndMarker,
+        dumpLineMarker: opts.dumpLineMarker,
+    });
+
+    const files = gatherKubejsFiles(instancePath);
+    const result = runOfflineScripts(files, snapshot, {
+        scriptsFilter: opts.scriptsFilter,
+    });
+
+    if (result.errors.length > 0) {
+        for (const err of result.errors) {
+            console.error(formatRunnerError(err));
+        }
+    } else {
+        console.log("KubeJS offline runner: no errors.");
+    }
+}
+
+function parseArgs(argv: string[]): CliOptions | null {
+    if (argv.length === 0) {
+        return null;
     }
 
-    runServerScripts(files, opts);
-}
+    const opts: Partial<CliOptions> = {};
+    const positional: string[] = [];
 
-interface KubejsRecipeFilter {
-    id?: string;
-    input?: string;
-}
-
-interface ServerEvents_recipes_Event {
-    replaceInput(
-        filter: KubejsRecipeFilter, // Arg 1: the filter
-        f: string, // Arg 2: the item to replace
-        t: string, // Arg 3: the item to replace it with
-    ): void;
-    remove(): void; // TODO KubeJs remove args
-    shapeless(): void; // TODO KubeJs remove args
-}
-
-type ServerEvents_recipes_Callback = (event: ServerEvents_recipes_Event) => void;
-
-function runServerScripts(files: KubeJsFiles, opts: KubeJsOfflineRunnerOpts) {
-    for (let scriptPath of files.server_scripts) {
-        if (opts?.scriptsFilter && !scriptPath.includes(opts.scriptsFilter)) {
+    for (const arg of argv) {
+        if (!arg.startsWith("--")) {
+            positional.push(arg);
             continue;
         }
-
-        try {
-            const kubejsGlobals = {
-                ServerEvents: {
-                    recipes: (callback: ServerEvents_recipes_Callback) => {
-                        const event: ServerEvents_recipes_Event = {
-                            replaceInput: (
-                                filter: KubejsRecipeFilter, // Arg 1: the filter
-                                f: string, // Arg 2: the item to replace
-                                t: string, // Arg 3: the item to replace it with
-                            ): void => {
-                                // TODO replaceInput @notImplemented yet
-                                console.warn(`CODE00000069 replaceInput - started!`, { filter, f, t });
-                                console.warn(`CODE00000070 replaceInput - finished!`);
-                            },
-                            remove: (): void => {
-                                // TODO remove @notImplemented yet
-                                console.warn(`CODE00000071 remove - started!`);
-                                console.warn(`CODE00000072 remove - finished!`);
-                            },
-                            shapeless: (): void => {
-                                // TODO shapeless @notImplemented yet
-                                console.warn(`CODE00000071 shapeless - started!`);
-                                console.warn(`CODE00000072 shapeless - finished!`);
-                            },
-                        };
-                        console.warn(`CODE00000073 ServerEvents.recipes - started!`);
-                        callback(event);
-                        console.warn(`CODE00000074 ServerEvents.recipes - finished!`);
-                    },
-                },
-                Item: {
-                    of: () => {
-                        // TODO Item.of
-                    },
-                },
-            };
-
-            Object.assign(globalThis, kubejsGlobals);
-            const script = require(scriptPath);
-        } catch (e: any) {
-            console.error(`CODE00000075 Failed to run script '${scriptPath}' because of error:\n${e.message}\n${e.stack}`);
+        const [key, value] = arg.slice(2).split("=", 2);
+        switch (key) {
+            case "instance":
+                opts.instancePath = value;
+                break;
+            case "filter":
+                opts.scriptsFilter = value;
+                break;
+            case "snapshot":
+                opts.snapshotPath = value;
+                break;
+            case "log":
+                opts.logPath = value;
+                break;
+            case "dump-start":
+                opts.dumpStartMarker = value;
+                break;
+            case "dump-end":
+                opts.dumpEndMarker = value;
+                break;
+            case "dump-line":
+                opts.dumpLineMarker = value;
+                break;
+            default:
+                break;
         }
     }
+
+    if (!opts.instancePath && positional[0]) {
+        opts.instancePath = positional[0];
+    }
+
+    if (!opts.instancePath) {
+        return null;
+    }
+
+    return opts as CliOptions;
 }
 
-// kubejs_offline_runner(`G:\\G_minecraft\\minecraft\\minecraft_prism_launcher_ely_by\\instances\\yy_modpack_1_20_forge\\minecraft`, {
-//     scriptsFilter: "yy_replace_iron_with_andesite.js",
-// });
-
-kubejs_offline_runner(`D:\\b\\Mine\\GIT_Work\\minecraft\\minecraft_create_balancing\\KubeJsScripts_for_testing\\minecraft`, {
-    scriptsFilter: "yy_replace_iron_with_andesite.js",
-});
+if (require.main === module) {
+    const opts = parseArgs(process.argv.slice(2));
+    if (!opts) {
+        console.error(
+            "Usage: node main.js <minecraft_instance_path> [--filter=... --log=... --snapshot=...]",
+        );
+        process.exit(1);
+    }
+    kubejs_offline_runner(opts);
+}
